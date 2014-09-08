@@ -31,6 +31,31 @@ require('co')(function* () {
   }), 'has system name')
 
 
+  // Create groups...
+  var groupName = 'test-group-' + uuid.v4();
+  var createGroup = yield trail.createGroup({
+    group: {
+      name: groupName
+    }
+  });
+
+  // register system in group...
+  yield trail.systemJoinGroup(create.id, { group_id: createGroup.id });
+
+  // verify we are in the right group
+  var groupDetails = yield trail.getGroup(createGroup.id);
+  assert.equal(groupDetails.systems[0].name, systemName);
+
+  // leave the group...
+  yield trail.systemLeaveGroup(create.id, { group_id: createGroup.id });
+
+  // verify the group is now empty of systems.
+  var groupDetails = yield trail.getGroup(createGroup.id);
+  assert.equal(groupDetails.systems.length, 0);
+
+  // Remove the group entirely...
+  yield trail.deleteGroup(createGroup.id);
+
   // Delete the system...
   yield trail.deleteSystem(create.id);
 
@@ -43,4 +68,5 @@ require('co')(function* () {
 })(function(err) {
   if (err) throw err;
 });
+
 

@@ -1,6 +1,7 @@
 var assert = require('assert');
 var request = require('superagent-promise');
 var debug = require('debug')('papertrail');
+var debugResponse = require('debug')('papertrail:response');
 var util = require('util');
 
 var DEFAULT_BASE_URL = 'https://papertrailapp.com/api/v1/';
@@ -27,6 +28,9 @@ function decorateRequest(method) {
         debug('request error | %d | %s | %j', err.status, err, err.body);
         throw err;
       }
+      debugResponse(
+        '%s | %d | %j', req.url, res.statusCode, res.body
+      );
       return res.body;
     });
   };
