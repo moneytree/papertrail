@@ -1,0 +1,37 @@
+{
+  "name": "papertrail",
+  "version": "0.0.0",
+  "description": "Papertrail HTTP api interface",
+  "main": "api.js",
+  "scripts": {
+    "test": "find examples -name '*.js' | xargs -n 1 node --harmony"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lightsofapollo/papertrail.git"
+  },
+  "keywords": [
+    "papertrail",
+    "log",
+    "http",
+    "api",
+    "client"
+  ],
+  "author": "James Lal [:lightsofapollo]",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lightsofapollo/papertrail/issues"
+  },
+  "homepage": "https://github.com/lightsofapollo/papertrail",
+  "dependencies": {
+    "debug": "^2.0.0",
+    "promise": "^5.0.0",
+    "superagent": "^0.18.2",
+    "superagent-promise": "^0.1.2"
+  },
+  "devDependencies": {
+    "co": "^3.1.0",
+    "mocha": "^1.21.4",
+    "uuid": "^1.4.1"
+  }
+}
