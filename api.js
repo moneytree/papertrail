@@ -2,6 +2,7 @@ var assert = require('assert');
 var request = require('superagent-promise');
 var debug = require('debug')('papertrail');
 var debugResponse = require('debug')('papertrail:response');
+var debugRequest = require('debug')('papertrail:request');
 var util = require('util');
 
 var DEFAULT_BASE_URL = 'https://papertrailapp.com/api/v1/';
@@ -36,18 +37,31 @@ function decorateRequest(method) {
   };
 }
 
+function sendRequest(method, req, options) {
+  debugRequest(req.url, 'body:', options);
+  if (method !== 'get') {
+    // for put/post/del we use form.
+    req.set('Content-Type', 'application/x-www-form-urlencoded');
+    req.send(options);
+  } else {
+    // for get requests all options are query params.
+    req.query(options);
+  }
+  return req;
+}
+
 function api(method, url) {
   return decorateRequest(function(options) {
-    return request[method](this.baseUrl + url).
-            query(options);
+    var req = request[method](this.baseUrl + url);
+    return sendRequest(method, req, options);
   });
 }
 
 function apiWithId(method, url) {
   return decorateRequest(function(id, options) {
     assert(id, 'id is required');
-    return request[method](this.baseUrl + util.format(url, id)).
-            query(options);
+    var req = request[method](this.baseUrl + util.format(url, id));
+    return sendRequest(method, req, options);
   });
 }
 
