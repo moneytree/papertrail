@@ -113,7 +113,7 @@ Papertrail.prototype = {
 
   savedSearches: api('get', 'searches.json'),
   savedSearch: apiWithId('get', 'searches/%s.json'),
-  createSavedSearch: apiWithId('post', 'searches/%s.json'),
+  createSavedSearch: api('post', 'searches.json'),
   updateSavedSearch: apiWithId('put', 'searches/%s.json'),
   deleteSavedSearch: apiWithId('del', 'searches/%s.json'),
 
