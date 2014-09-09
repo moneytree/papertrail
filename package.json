@@ -1,6 +1,6 @@
 {
   "name": "papertrail",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Papertrail HTTP api interface",
   "main": "api.js",
   "scripts": {
