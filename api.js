@@ -102,7 +102,7 @@ Papertrail.prototype = {
   /** system apis */
 
   listSystems: api('get', 'systems.json'),
-  getSystem: apiWithId('systems/%s.json'),
+  getSystem: apiWithId('get', 'systems/%s.json'),
   registerSystem: api('post', 'systems.json'),
   updateSystem: apiWithId('put', 'systems/%s.json'),
   deleteSystem: apiWithId('del', 'systems/%s.json'),
