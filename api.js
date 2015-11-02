@@ -93,7 +93,10 @@ Papertrail.prototype = {
   */
   searchEvents: decorateRequest(function(options) {
     options = options || {};
-    if (options.q) options.q = encodeURI(options.q);
+    // TODO: AWR removed this because searching for strings with spaces
+    // returns no events. We think that perhaps one of the frameworks
+    // being used is doing the encoding again. Need to investigate.
+    //if (options.q) options.q = encodeURI(options.q);
 
     return request.get(this.baseUrl + 'events/search').
             query(options);
